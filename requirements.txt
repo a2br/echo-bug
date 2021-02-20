@@ -1,0 +1,29 @@
+# Requirements found on the Raspberry Pi Zero W running the code.
+# All of these shouldn't be necessary.
+
+appdirs==1.4.4
+asn1crypto==0.24.0
+certifi==2018.8.24
+chardet==3.0.4
+cryptography==2.6.1
+distlib==0.3.1
+entrypoints==0.3
+filelock==3.0.12
+idna==2.6
+importlib-metadata==3.4.0
+keyring==17.1.1
+keyrings.alt==3.1.1
+PyBluez==0.23
+pycrypto==2.6.1
+PyGObject==3.30.4
+python-apt==1.8.4.3
+python-dotenv==0.15.0
+pyxdg==0.25
+requests==2.21.0
+SecretStorage==2.3.1
+six==1.12.0
+ssh-import-id==5.7
+typing-extensions==3.7.4.3
+urllib3==1.24.1
+virtualenv==20.4.2
+zipp==3.4.0
