@@ -60,19 +60,16 @@ def handleReponse(res: Response, text: str):
         if str(status).startswith("4"):
             if status == 422:
                 print("  ERR 422 | Sent invalid data.")
-                wait(60)
             elif status == 401:
                 print("  ERR 401 | Cannot authenticate.")
-                wait(60)
+
             else:
                 print(f"  ERR {status} | Unknown error. Response body:")
                 print("  " + res.text)
-                print("  Terminating.")
-                exit()
         elif str(status).startswith("5"):
             print(f"  ERR {status} | Server error. Response body:")
             print("  " + res.text)
-            wait(60)
+        wait(60)
 
 
 def getIdentity():
@@ -84,7 +81,7 @@ def getIdentity():
             json = res.json()
             if res.status_code != 200:
                 print("Authentication failed. Terminating.")
-                exit()
+                wait(60)
             return json
         except ConnectionError:
             wait(60, "Failed to initiate connection with server.")
