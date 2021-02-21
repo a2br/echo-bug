@@ -44,32 +44,34 @@ def handleNearby(nearby: List[Tuple[str, str, int]]):
         res = req.post(f"{server}/ping",
                        json={"devices": devices},
                        headers={"Authorization": token})
-        print("| " + text)
-        handleReponse(res)
-    except ConnectionError:
+        handleReponse(res, text)
+    except ConnectionError as e:
         print("X " + text)
-        wait(60, "Failed to reach server.")
+        wait(60, "  Failed to reach server.")
 
 
-def handleReponse(res: Response):
+def handleReponse(res: Response, text: str):
     status = res.status_code
     success = str(status).startswith("2")
-    if not success:
+    if success:
+        print("| " + text)
+    else:
+        print("X " + text)
         if str(status).startswith("4"):
             if status == 422:
-                print("ERR 422 | Sent invalid data.")
+                print("  ERR 422 | Sent invalid data.")
                 wait(60)
             elif status == 401:
-                print("ERR 401 | Cannot authenticate.")
+                print("  ERR 401 | Cannot authenticate.")
                 wait(60)
             else:
-                print(f"ERR {status} | Unknown error. Response body:")
-                print(res.text)
-                print("Terminating.")
+                print(f"  ERR {status} | Unknown error. Response body:")
+                print("  " + res.text)
+                print("  Terminating.")
                 exit()
         elif str(status).startswith("5"):
-            print(f"ERR {status} | Server error. Response body:")
-            print(res.text)
+            print(f"  ERR {status} | Server error. Response body:")
+            print("  " + res.text)
             wait(60)
 
 
@@ -89,9 +91,9 @@ def getIdentity():
 
 
 def main():
-    print("Starting...\n")
+    print("Starting...")
     id = getIdentity()
-    print(f"Emitting as {id['name']} [{id['id']}].")
+    print(f"Emitting as \"{id['name']}\" [{id['id']}].\n")
     while True:
         print("* " + "Searching...", end="\r")
         sys.stdout.write('\033[2K\033[1G')
